@@ -1,0 +1,106 @@
+{
+  "$comment": "Invented weather-station data for the Presence Beacon demo. Every station, reading, and timestamp here is fictional. The demo replays this file instead of waiting on a real clock, so the TTL expiry is reproducible.",
+  "schemaVersion": 1,
+  "generatedAt": "2026-03-14T09:04:00Z",
+  "beaconOptions": {
+    "beaconDirectory": "./.beacons",
+    "ttlMinutes": 2,
+    "heartbeatSeconds": 15,
+    "fileNameFormat": "{harnessId}.beacon.json"
+  },
+  "queryTime": "2026-03-14T09:04:00Z",
+  "sensors": [
+    {
+      "harnessId": "wx-ridgeline-01",
+      "displayName": "Ridgeline Meadow",
+      "siteCode": "RDG-01",
+      "elevationMeters": 1180,
+      "taskHint": "collecting air temperature",
+      "beacon": {
+        "harnessId": "wx-ridgeline-01",
+        "lastSeen": "2026-03-14T09:03:45Z",
+        "taskHint": "collecting air temperature",
+        "ttlMinutes": 2
+      },
+      "stopsHeartbeatingAt": null,
+      "expected": {
+        "live": true,
+        "ageSeconds": 15,
+        "reason": "heartbeat is 15s old, inside the 2 minute TTL"
+      },
+      "readings": [
+        { "takenAt": "2026-03-14T09:00:00Z", "temperatureC": 4.2, "relativeHumidityPct": 71, "windKph": 8.4 },
+        { "takenAt": "2026-03-14T09:01:00Z", "temperatureC": 4.5, "relativeHumidityPct": 70, "windKph": 9.1 },
+        { "takenAt": "2026-03-14T09:02:00Z", "temperatureC": 4.9, "relativeHumidityPct": 68, "windKph": 11.7 },
+        { "takenAt": "2026-03-14T09:03:00Z", "temperatureC": 5.3, "relativeHumidityPct": 67, "windKph": 12.2 }
+      ]
+    },
+    {
+      "harnessId": "wx-quarry-flats-02",
+      "displayName": "Quarry Flats",
+      "siteCode": "QRY-02",
+      "elevationMeters": 340,
+      "taskHint": "collecting wind speed",
+      "beacon": {
+        "harnessId": "wx-quarry-flats-02",
+        "lastSeen": "2026-03-14T09:03:50Z",
+        "taskHint": "collecting wind speed",
+        "ttlMinutes": 2
+      },
+      "stopsHeartbeatingAt": null,
+      "expected": {
+        "live": true,
+        "ageSeconds": 10,
+        "reason": "heartbeat is 10s old, inside the 2 minute TTL"
+      },
+      "readings": [
+        { "takenAt": "2026-03-14T09:00:00Z", "temperatureC": 9.8, "relativeHumidityPct": 54, "windKph": 21.6 },
+        { "takenAt": "2026-03-14T09:01:00Z", "temperatureC": 10.1, "relativeHumidityPct": 53, "windKph": 24.3 },
+        { "takenAt": "2026-03-14T09:02:00Z", "temperatureC": 10.4, "relativeHumidityPct": 52, "windKph": 31.9 },
+        { "takenAt": "2026-03-14T09:03:00Z", "temperatureC": 10.2, "relativeHumidityPct": 52, "windKph": 34.5 }
+      ]
+    },
+    {
+      "harnessId": "wx-cedar-hollow-03",
+      "displayName": "Cedar Hollow",
+      "siteCode": "CDR-03",
+      "elevationMeters": 615,
+      "taskHint": "collecting relative humidity",
+      "beacon": {
+        "harnessId": "wx-cedar-hollow-03",
+        "lastSeen": "2026-03-14T09:01:00Z",
+        "taskHint": "collecting relative humidity",
+        "ttlMinutes": 2
+      },
+      "stopsHeartbeatingAt": "2026-03-14T09:01:00Z",
+      "expected": {
+        "live": false,
+        "ageSeconds": 180,
+        "reason": "node stopped writing at 09:01:00Z; 180s of silence exceeds the 2 minute TTL"
+      },
+      "readings": [
+        { "takenAt": "2026-03-14T09:00:00Z", "temperatureC": 6.7, "relativeHumidityPct": 88, "windKph": 3.2 },
+        { "takenAt": "2026-03-14T09:01:00Z", "temperatureC": 6.6, "relativeHumidityPct": 91, "windKph": 2.8 }
+      ]
+    }
+  ],
+  "alerts": [
+    {
+      "alertId": "alert-0001",
+      "raisedAt": "2026-03-14T09:03:00Z",
+      "harnessId": "wx-quarry-flats-02",
+      "kind": "ReadingThreshold",
+      "message": "Wind gust 34.5 kph over the 30.0 kph advisory line."
+    },
+    {
+      "alertId": "alert-0002",
+      "raisedAt": "2026-03-14T09:03:00Z",
+      "harnessId": "wx-cedar-hollow-03",
+      "kind": "BeaconStale",
+      "message": "No heartbeat from Cedar Hollow since 09:01:00Z. Treat the node as absent, not finished."
+    }
+  ],
+  "expectedLiveSet": ["wx-ridgeline-01", "wx-quarry-flats-02"],
+  "expectedStaleSet": ["wx-cedar-hollow-03"],
+  "unknownHarnessIds": ["wx-saltmarsh-04"]
+}
